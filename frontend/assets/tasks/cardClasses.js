@@ -6,16 +6,13 @@ export class Card {
             this.tags = tags
     }
 
-    createCard() {
-        const divEl = document.querySelector(".container")
+    createCard(parentEl) {
         this.liElement = document.createElement("li")
         this.liElement.innerHTML = `
-        <div>
             <span>${this.name}</span>
             <span>${this.status}</span>
-        </div>
         `
 
-        divEl.append(this.liElement)
+        parentEl.append(this.liElement)
     }
 }

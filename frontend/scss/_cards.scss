@@ -1,0 +1,20 @@
+.todo-container, .progress-container, .done-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    column-span: 1;
+    
+
+    li {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5px;
+        
+    }
+}
+
+.tasks-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 500px));
+}
+
