@@ -1,7 +1,18 @@
+import { navigateTo } from "../helperFunctions/routing.js";
 import { Card } from "./cardClasses.js";
 
 export function boardCards() {
 
+    const divContainer = document.createElement("div")
+    divContainer.className = "task-overall"
+
+    const navEl = document.createElement("nav")
+    navEl.className = "tasks-navigation"
+
+    const buttonEl = document.createElement("button")
+    buttonEl.textContent = "Create a task"
+    buttonEl.addEventListener("click", () => navigateTo("task.html"))
+    navEl.append(buttonEl)
     const divEl = document.createElement('div')
     divEl.className = "tasks-container"
     const todoUlEl = document.createElement("ul")
@@ -11,7 +22,8 @@ export function boardCards() {
     const doneUlEl = document.createElement("ul")
     doneUlEl.className = "done-container"
     divEl.append(todoUlEl, progressUlEl, doneUlEl)
-    document.querySelector(".container").append(divEl)
+    divContainer.append(navEl,divEl)
+    document.querySelector(".container").append( divContainer)
 
     const listOfTasks  = [
         {name: "handle button",status: "to do", time: 300, tags: ["important", "nigga"]},
@@ -22,12 +34,15 @@ export function boardCards() {
 
     for (let i = 0; i < listOfTasks.length; i++) {
         if (listOfTasks[i].status == "to do") {
+
             const el = new Card(listOfTasks[i].name, listOfTasks[i].status,listOfTasks[i].time,listOfTasks[i].tags)
             el.createCard(todoUlEl)
         } else if (listOfTasks[i].status == "in progress") {
+
             const el = new Card(listOfTasks[i].name, listOfTasks[i].status,listOfTasks[i].time,listOfTasks[i].tags)
             el.createCard(progressUlEl)
         } else if (listOfTasks[i].status == "done") {
+
             const el = new Card(listOfTasks[i].name, listOfTasks[i].status,listOfTasks[i].time,listOfTasks[i].tags)
             el.createCard(doneUlEl)
         }
@@ -35,6 +50,8 @@ export function boardCards() {
     }
 
 }
+
+
 
 
 

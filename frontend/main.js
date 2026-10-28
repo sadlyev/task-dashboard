@@ -1,6 +1,7 @@
-import { boardCards } from "./assets/tasks/mainCards.js";
+
+import { handleRouting } from "./assets/router/router.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    boardCards()
+    handleRouting()
 })
