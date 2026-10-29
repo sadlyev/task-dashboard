@@ -3,19 +3,30 @@
     flex-direction: column;
     border: 1px solid black;
     column-span: 1;
-    
+
 
     li {
         display: flex;
         flex-direction: column;
-        margin-bottom: 5px;
+        align-items: center;
+        justify-content: center;
+        border-top: 1px solid black;
+        width: 100%;
         
+        
+    };
+
+    li:last-child {
+        border-bottom: 1px solid black;
     }
+
+    
 }
 
 .tasks-container {
     display: grid;
     grid-template-columns: repeat(3, minmax(100px, 500px));
+
 }
 
 .task-overall {
@@ -23,12 +34,29 @@
     grid-template-columns: minmax(100px, 300px) 1fr;
     width: 100%;
     gap: 20px;
+    
 }
 .tasks-navigation {
     border: 1px solid black;
     width: 100%;
     display: flex;
     grid-column: span 1;
+    flex-direction: column;
 }
+
+.task-btn {
+    background-color: rgb(107, 159, 227);
+    color: white;
+    width: 100%;
+    padding: 10px 5px 10px;
+    transition: all ;
+    transition-duration: 300ms;
+    
+    &:hover {
+        background-color: rgb(58, 135, 235);
+    }
+}
+
+
 
 

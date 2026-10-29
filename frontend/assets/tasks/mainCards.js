@@ -10,6 +10,7 @@ export function boardCards() {
     navEl.className = "tasks-navigation"
 
     const buttonEl = document.createElement("button")
+    buttonEl.className = "task-btn"
     buttonEl.textContent = "Create a task"
     buttonEl.addEventListener("click", () => navigateTo("task.html"))
     navEl.append(buttonEl)
