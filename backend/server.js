@@ -1,14 +1,21 @@
 import cookieParser from "cookie-parser"
 import express from "express"
-import {cors} from "cors"
+import cors from "cors"
+import createtask from "./routes/createTask.js"
 
 const app = express()
 
 app.use(cors({
   origin: "http://127.0.0.1:5500",
   credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
+  methods: ["POST", "PUT", "GET","PATCH","DELETE"]
 }))
+
+app.use(express.json())
+app.use(cookieParser())
+
+app.use("/", createtask)
+
 
 
 const port = process.env.PORT || 5000
