@@ -1,7 +1,7 @@
 import { navigateTo } from "../helperFunctions/routing.js";
 import { Card } from "./cardClasses.js";
 
-export function boardCards() {
+export async function boardCards() {
 
     const divContainer = document.createElement("div")
     divContainer.className = "task-overall"
@@ -26,29 +26,74 @@ export function boardCards() {
     divContainer.append(navEl,divEl)
     document.querySelector(".container").append( divContainer)
 
-    const listOfTasks  = [
-        {name: "handle button",status: "to do", time: 300, tags: ["important", "nigga"]},
-        {name: "fix color",status: "to do", time: 300, tags: ["important", "nigga"]},
-        {name: "change script",status: "in progress", time: 300, tags: ["important", "nigga"]},
-        {name: "fix error",status: "done", time: 300, tags: ["important", "nigga"]}
-    ]
 
-    for (let i = 0; i < listOfTasks.length; i++) {
-        if (listOfTasks[i].status == "to do") {
+     const result =  await fetch("http://localhost:5000/get-tasks", {
+            method: "GET",
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error("we failed")
+            }
+            return response.json()
+        }).catch((err) => {
+            throw err
+        })
 
-            const el = new Card(listOfTasks[i].name, listOfTasks[i].status,listOfTasks[i].time,listOfTasks[i].tags)
-            el.createCard(todoUlEl)
-        } else if (listOfTasks[i].status == "in progress") {
 
-            const el = new Card(listOfTasks[i].name, listOfTasks[i].status,listOfTasks[i].time,listOfTasks[i].tags)
-            el.createCard(progressUlEl)
-        } else if (listOfTasks[i].status == "done") {
+        for (let i = 0; i < result.message.task.length; i++) {
+            if (result.message.task[i].status == "to do") {
+                const card = new Card(result.message.task[i].id, result.message.task[i].title, result.message.task[i].description, result.message.task[i].status, result.message.task[i].img_path)
+                card.createCard(todoUlEl)
+            }
 
-            const el = new Card(listOfTasks[i].name, listOfTasks[i].status,listOfTasks[i].time,listOfTasks[i].tags)
-            el.createCard(doneUlEl)
+            if (result.message.task[i].status == "in progress") {
+                const card = new Card(result.message.task[i].id, result.message.task[i].title, result.message.task[i].description, result.message.task[i].status, result.message.task[i].img_path)
+                card.createCard(progressUlEl)
+            }
+
+
+            if (result.message.task[i].status == "done") {
+                const card = new Card(result.message.task[i].id, result.message.task[i].title, result.message.task[i].description, result.message.task[i].status, result.message.task[i].img_path)
+                card.createCard(doneUlEl)
+            }
         }
+
+        const els = document.querySelectorAll(".li-task")
+
+        els.forEach((el) => {
+            const select = el.querySelector("select")
+            select.addEventListener("change", async (event) => {
+                event.preventDefault()
+                
+                const sibling = el.querySelector(".task-id")
+
+                    const request = await fetch("http://localhost:5000/update-task", {
+                        method: "PATCH", 
+                        headers: {
+                            "Content-type": "application/json"
+                        },
+                        body: JSON.stringify({id: sibling.textContent, elStat: select.value})
+                    }).then((response) => {
+                        if (!response.ok) {
+                            throw new Error("we failed")
+                        }
+
+                        response.json()
+                        
+                    }).catch((err) => {
+                        console.log("alo")
+                    })
+
+                    console.log(request)
+            })
+        })
+
+
+
+
+   
+       
         
-    }
+    
 
 }
 

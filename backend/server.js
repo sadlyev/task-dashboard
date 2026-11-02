@@ -2,6 +2,8 @@ import cookieParser from "cookie-parser"
 import express from "express"
 import cors from "cors"
 import createtask from "./routes/createTask.js"
+import gettask from "./routes/getTask.js"
+import updatetask from "./routes/updatetask.js"
 
 const app = express()
 
@@ -15,6 +17,8 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use("/", createtask)
+app.use("/", gettask)
+app.use("/", updatetask)
 
 
 
