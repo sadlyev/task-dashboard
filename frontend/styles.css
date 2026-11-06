@@ -9,11 +9,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid black;
+  border-bottom: 1px solid black;
   width: 100%;
 }
-.todo-container li:last-child, .progress-container li:last-child, .done-container li:last-child {
-  border-bottom: 1px solid black;
+.todo-container li img, .progress-container li img, .done-container li img {
+  width: 100px;
+  height: 100px;
 }
 
 .tasks-container {
